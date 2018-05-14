@@ -22,13 +22,28 @@ class CharAutoencoder(abc_model.ABCModel):
         return callbacks
 
     @classmethod
+    def make_simple_model(cls):
+        layer_input = Input(shape=(None, 4 * 4 * 8))
+        x = Dense(256, activation='sigmoid')(layer_input)
+        x = LSTM(512)(x)
+        x = LSTM(128)(x)
+        x = LSTM(512, return_sequences=True)(x)
+        layer_output = Dense(128, activation='relu')(x)
+        model = Model(layer_input, layer_output)
+        model.summary()
+
+        model.compile(loss=config.Config.loss,
+                      optimizer=config.Config.optimizer,
+                      metrics=[config.Config.metrics])
+        return model
+
+    @classmethod
     def make_model(cls):
         encoder_input = Input(shape=(None, 4 * 4 * 8))
 
         x = Dense(512, activation='sigmoid')(encoder_input)
         x, state_h, state_c = LSTM(
             256, return_state=True)(x)
-
         states = [state_h, state_c]
         decoder_input = Input(shape=(None, 4 * 4 * 8))
         x = Dense(512, activation='sigmoid')(decoder_input)

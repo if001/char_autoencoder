@@ -5,20 +5,19 @@ from model_exec.learning import Learning
 from model_exec.predict import Predict
 import numpy as np
 
-data_size = 2000
+data_size = 60000
 
 
 def main():
-    train_x, teach_y = PreProcessing().make_train_data(data_size, window_size=10)
-    word_autoencoder_model = CharAutoencoder().make_model()
-    # cbs = CharAutoencoder().set_callbacks("model.hdf5")
-    # hist = Learning.run(word_autoencoder_model, train_x, train_y, cbs)
-    exit(0)
+    train, teach = PreProcessing().make_train_data(data_size, window_size=10)
+    char_autoencoder_model = CharAutoencoder().make_simple_model()
+    cbs = CharAutoencoder().set_callbacks("char_model.hdf5")
+    hist = Learning.run(char_autoencoder_model, train, teach, cbs)
 
-    print("test:", train_x[0])
-    test_x = np.array([train_x[0]])
-    score = Predict.run(word_autoencoder_model, test_x)
-    print("score:", score)
+    # print("test:", train_x[0])
+    # test_x = np.array([train_x[0]])
+    # score = Predict.run(word_autoencoder_model, test_x)
+    # print("score:", score)
 
 
 if __name__ == '__main__':
