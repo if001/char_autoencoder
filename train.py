@@ -5,7 +5,7 @@ from model_exec.learning import Learning
 from model_exec.predict import Predict
 import numpy as np
 
-data_size = 60000
+data_size = 100
 
 
 def main():

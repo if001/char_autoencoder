@@ -25,13 +25,12 @@ class CharAutoencoder(abc_model.ABCModel):
     def make_simple_model(cls):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         x = Dense(256, activation='sigmoid')(layer_input)
-        x = LSTM(512)(x)
-        x = LSTM(128)(x)
+        x = LSTM(512, return_sequences=True)(x)
+        x = LSTM(128, return_sequences=True)(x)
         x = LSTM(512, return_sequences=True)(x)
         layer_output = Dense(128, activation='relu')(x)
         model = Model(layer_input, layer_output)
         model.summary()
-
         model.compile(loss=config.Config.loss,
                       optimizer=config.Config.optimizer,
                       metrics=[config.Config.metrics])
