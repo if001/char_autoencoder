@@ -8,10 +8,8 @@ import numpy as np
 
 import sys
 sys.path.append("../")
-# from string2image.image2string import image2string
-from string2image.image2string import Image2String
+from string2image.img2str import Image2String
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
-# from cnn_autoencoder.model_exec.predict import Predict
 
 
 def main():
