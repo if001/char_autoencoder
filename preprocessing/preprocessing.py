@@ -72,7 +72,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         print("teach shape:", teach_data.shape)
         return train_data, teach_data
 
-    @classmethodg
+    @classmethod
     def make_test_data(cls, char):
         autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
