@@ -12,10 +12,8 @@ from string2image.img2str import Image2String
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
 
 
-def main():
-    char_model = CharAutoencoder().load_model()
-
-    feature_list = PreProcessing().make_test_data("あ")
+def one_sentence(start_char, char_model, decoder_model):
+    feature_list = PreProcessing().make_test_data(start_char)
     loop = True
     while(loop):
         predict_feature_list = Predict.run(char_model, feature_list)
@@ -25,9 +23,6 @@ def main():
         if feature_list.shape[1] == 5:
             loop = False
 
-    cnn_model = SimpleAutoencoder().load_model("cnn_model.hdf5")
-    decoder_model = SimpleAutoencoder().make_decoder_model(cnn_model)
-
     sentence = ""
 
     for feature in feature_list[0]:
@@ -36,7 +31,18 @@ def main():
         char = Image2String.image2string(img)
         print(char)
         sentence += char
-    print(sentence)
+    return sentence
+
+
+def main():
+    char_model = CharAutoencoder().load_model()
+    cnn_model = SimpleAutoencoder().load_model("cnn_model.hdf5")
+    decoder_model = SimpleAutoencoder().make_decoder_model(cnn_model)
+
+    char_list = ["B", "S", "私", "こ", "明", "探"]
+    for start_char in char_list:
+        s = one_sentence(start_char, char_model, decoder_model)
+        print(s)
 
 
 if __name__ == '__main__':
