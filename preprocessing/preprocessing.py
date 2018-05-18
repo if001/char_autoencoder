@@ -41,7 +41,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
 
     @classmethod
     def make_train_data(cls, data_size, window_size=5):
-        autoencoder = SimpleAutoencoder.load_model("autoencoder.hdf5")
+        autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
@@ -73,14 +73,13 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         return train_data, teach_data
 
     @classmethod
-    def make_test_data(cls):
-        (x_train, y_train), (x_test, y_test) = mnist.load_data()
-        x_test = x_test.reshape(10000, 784)
-        x_test = x_test.astype('float32')
-        x_test /= 255
-        print(x_test.shape[0], 'test samples')
-        y_test = keras.utils.to_categorical(y_test, num_classes)
-        return x_test, y_test
+    def make_test_data(cls, char):
+        autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
+        encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
+        feature = get_feature.char2feature(char, encoder)
+        feature = feature.reshape(1, 1, 4 * 4 * 8)
+        print(feature.shape)
+        return feature
 
 
 def main():
