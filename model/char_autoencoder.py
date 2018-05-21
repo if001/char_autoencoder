@@ -11,10 +11,11 @@ class CharAutoencoder(abc_model.ABCModel):
     @classmethod
     def set_callbacks(cls, fname):
         # fname = 'weights.{epoch:02d}-{loss:.2f}-{acc:.2f}-{val_loss:.2f}-{val_acc:.2f}.hdf5'
-        fpath = config.Config.run_dir_path + "/weight/" + fname
+        # fpath = config.Config.run_dir_path + "/weight/" + fname
+        # print(fpath)
         callbacks = []
         callbacks.append(keras.callbacks.ModelCheckpoint(
-            filepath=fpath, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))
+            filepath=fname, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))
 
         callbacks.append(keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=5, verbose=1, mode='auto'))

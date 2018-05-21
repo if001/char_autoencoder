@@ -13,9 +13,8 @@ class Learning():
                             batch_size=config.Config.batch_size,
                             epochs=config.Config.epochs,
                             verbose=config.Config.verbose,
-                            validation_split=config.Config.validation_split,
                             callbacks=cbs,
-                            # validation_data=(x_test, y_test)
+                            validation_data=(x_test, y_test)
                             )
         return history
 
@@ -24,6 +23,7 @@ class Learning():
         history = model.fit(x_train, y_train,
                             batch_size=config.Config.batch_size,
                             epochs=config.Config.epochs,
+                            validation_split=config.Config.validation_split,
                             callbacks=cbs
                             )
         return history
