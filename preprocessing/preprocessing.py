@@ -45,7 +45,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            "../aozora_data/files/files_all_rnp_rmBOS.txt")
+            "../aozora_data/files/files_all_rnp.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
