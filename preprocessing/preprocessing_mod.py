@@ -8,6 +8,7 @@ import numpy as np
 
 from PIL import Image
 from preprocessing.abc_preprocessing import ABCPreProcessing
+from preprocessing.config import Config
 from cnn_autoencoder import get_feature
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
 
@@ -42,7 +43,7 @@ class PreProcessing(ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            "../aozora_data/files/files_all_rnp.txt")
+            Config.up_two_dir + "aozora_data/files/files_all_rnp.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
@@ -77,7 +78,7 @@ class PreProcessing(ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            "../aozora_data/files/files_all_rnp.txt")
+            Config.up_two_dir + "aozora_data/files/files_all_rnp.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
