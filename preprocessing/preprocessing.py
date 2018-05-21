@@ -89,7 +89,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         word_list = list(chain.from_iterable(word_list))
         word_list = "".join(word_list)
 
-        cy_mod_make_train_data(encoder, get_feature, word_list, window_size)
+        return cy_mod_make_train_data(encoder, get_feature, word_list, window_size)
 
     @classmethod
     def make_test_data(cls, char):
