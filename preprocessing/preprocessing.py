@@ -55,7 +55,10 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         train_data = []
         teach_data = []
         rand_num = rand.randint(0, len(word_list) - data_size + 1)
+
         for char in word_list[rand_num: rand_num + data_size]:
+            sys.stdout.write("\r now:(%d/%d)" % (len(train_data), data_size))
+            sys.stdout.flush()
             feature = get_feature.char2feature(char, encoder)
             feature = feature.reshape(4 * 4 * 8)
             window_sentence.append(feature)
@@ -63,7 +66,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
                 train_data.append(window_sentence[:-1])
                 teach_data.append(window_sentence[1:])
                 window_sentence = window_sentence[1:]
-
+        print("")
         train_data = np.array(train_data)
         teach_data = np.array(teach_data)
 
