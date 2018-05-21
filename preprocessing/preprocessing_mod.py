@@ -12,8 +12,6 @@ from preprocessing.config import Config
 from cnn_autoencoder import get_feature
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
 
-num_classes = 10
-
 
 class PreProcessing(ABCPreProcessing):
     @classmethod
@@ -105,13 +103,13 @@ class PreProcessing(ABCPreProcessing):
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         print("save")
-        np.save("./train",train_data)
-        np.save("./teach",teach_data)
+        np.save(Config.run_dir_path + "/train",train_data)
+        np.save(Config.run_dir_path + "/teach",teach_data)
 
     @classmethod
     def load_train_data(cls):
-        train_data = np.load("./train.npy")
-        teach_data = np.load("./teach.npy")
+        train_data = np.load(Config.run_dir_path + "/train.npy")
+        teach_data = np.load(Config.run_dir_path + "/teach.npy")
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data,teach_data
@@ -124,9 +122,9 @@ class PreProcessing(ABCPreProcessing):
 def main():
     arg = sys.argv[-1]
     if arg=="save":
-        PreProcessing.save_train_data(100,window_size=25)
+        PreProcessing.save_train_data(130000,window_size=25)
     elif arg=="load":
-        PreProcessing.save_train_data(100,window_size=25)
+        PreProcessing.load_train_data()
     else:
         print("set args [save] or [load]")
         exit(0)
