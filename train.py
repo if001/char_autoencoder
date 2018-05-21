@@ -15,7 +15,7 @@ def main():
     char_model = CharAutoencoder().make_simple_model()
     cbs = CharAutoencoder().set_callbacks(Config.save_model)
     hist = Learning.run_with_test(char_model, train, teach, test_train, test_teach, cbs)t
-    CharAutoencoder().save_model(char_model)n
+    CharAutoencoder().save_model(char_model)
 
 
 if __name__ == '__main__':
