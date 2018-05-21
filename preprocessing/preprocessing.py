@@ -63,8 +63,8 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
             feature = feature.reshape(4 * 4 * 8)
             window_sentence.append(feature)
             if len(window_sentence) == window_size + 1:
-                train_data.append(window_sentence[:-1])
-                teach_data.append(window_sentence[1:])
+                train_data.insert(0, window_sentence[:-1])
+                teach_data.insert(0, window_sentence[1:])
                 window_sentence = window_sentence[1:]
         print("")
         train_data = np.array(train_data)
