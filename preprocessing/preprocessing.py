@@ -14,6 +14,9 @@ from . import config
 from cnn_autoencoder import get_feature
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
 
+
+from preprocessing.cy_preprocessing import cy_mod_make_train_data
+
 num_classes = 10
 
 
@@ -73,6 +76,20 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data, teach_data
+
+    @classmethod
+    def cy_make_train_data(cls, data_size, window_size=5):
+        autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
+        encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
+
+        word_list = PreProcessing.__get_word_lists(
+            "../aozora_data/files/files_all_rnp.txt")
+
+        from itertools import chain
+        word_list = list(chain.from_iterable(word_list))
+        word_list = "".join(word_list)
+
+        cy_mod_make_train_data(encoder, get_feature, word_list, window_size)
 
     @classmethod
     def make_test_data(cls, char):
