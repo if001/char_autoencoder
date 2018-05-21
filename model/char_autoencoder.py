@@ -28,7 +28,7 @@ class CharAutoencoder(abc_model.ABCModel):
         x = Dense(256, activation='sigmoid')(layer_input)
         x = LSTM(512, return_sequences=True)(x)
         x = Dropout(0.5)(x)
-        x = LSTM(128, return_sequences=True)(x)
+        x = LSTM(256, return_sequences=True)(x)
         x = Dropout(0.5)(x)
         x = LSTM(512, return_sequences=True)(x)
         x = Dropout(0.5)(x)
