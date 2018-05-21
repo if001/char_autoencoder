@@ -122,8 +122,14 @@ class PreProcessing(ABCPreProcessing):
 
 
 def main():
-    PreProcessing.save_train_data(100,window_size=25)
-
+    arg = sys.argv[-1]
+    if arg=="save":
+        PreProcessing.save_train_data(100,window_size=25)
+    elif arg=="load":
+        PreProcessing.save_train_data(100,window_size=25)
+    else:
+        print("set args [save] or [load]")
+        exit(0)
 
 if __name__ == '__main__':
     main()
