@@ -10,14 +10,14 @@ from itertools import chain
 import numpy as np
 
 from PIL import Image
-from . import config
+from preprocessing.abc_preprocessing import ABCPreProcessing
 from cnn_autoencoder import get_feature
 from cnn_autoencoder.model.simple_autoencoder import SimpleAutoencoder
 
 num_classes = 10
 
 
-class PreProcessing(abc_preprocessing.ABCPreProcessing):
+class PreProcessing(ABCPreProcessing):
     @classmethod
     def __get_word_lists(cls, file_path):
         print("make wordlists")
@@ -117,14 +117,14 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data,teach_data
-    
+
     @classmethod
     def make_test_data(cls):
         pass
 
 
 def main():
-    pass
+    PreProcessing.save_train_data(100,window_size=25)
 
 
 if __name__ == '__main__':

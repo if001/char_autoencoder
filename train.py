@@ -1,6 +1,6 @@
 
 from model.char_autoencoder import CharAutoencoder
-from preprocessing.preprocessing import PreProcessing
+from preprocessing.preprocessing_mod import PreProcessing
 from model_exec.learning import Learning
 from model_exec.predict import Predict
 import numpy as np
