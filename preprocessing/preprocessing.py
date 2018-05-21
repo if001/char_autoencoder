@@ -45,7 +45,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            "../aozora_data/files/files_all_rnp.txt")
+            "../aozora_data/files/files_all_rnp_rmBOS.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
@@ -54,7 +54,6 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
         window_sentence = []
         train_data = []
         teach_data = []
-
         rand_num = rand.randint(0, len(word_list) - data_size + 1)
         for char in word_list[rand_num: rand_num + data_size]:
             feature = get_feature.char2feature(char, encoder)
@@ -63,7 +62,7 @@ class PreProcessing(abc_preprocessing.ABCPreProcessing):
             if len(window_sentence) == window_size + 1:
                 train_data.append(window_sentence[:-1])
                 teach_data.append(window_sentence[1:])
-                window_sentence = window_sentence[:-1]
+                window_sentence = window_sentence[1:]
 
         train_data = np.array(train_data)
         teach_data = np.array(teach_data)
