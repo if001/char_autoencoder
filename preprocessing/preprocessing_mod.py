@@ -115,9 +115,13 @@ class PreProcessing(ABCPreProcessing):
         return train_data,teach_data
 
     @classmethod
-    def make_test_data(cls):
-        pass
-
+    def make_test_data(cls,char):
+        autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
+        encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
+        feature = get_feature.char2feature(char, encoder)
+        feature = feature.reshape(1, 1, 4 * 4 * 8)
+        print(feature.shape)
+        return feature
 
 def main():
     arg = sys.argv[-1]
