@@ -85,9 +85,13 @@ class PreProcessing(ABCPreProcessing):
         window_sentence = []
         train_data = []
         teach_data = []
-        rand_num = rand.randint(0, len(word_list) - data_size + 1)
 
-        for char in word_list[rand_num: rand_num + data_size]:
+        print("number of chars:",len(word_list))
+        if len(word_list) < data_size:
+            print("error! data_size is over number of char!")
+            exit(0)
+
+        for char in word_list[0: data_size]:
             sys.stdout.write("\r now:(%d/%d)" % (len(train_data), data_size))
             sys.stdout.flush()
             feature = get_feature.char2feature(char, encoder)
@@ -126,7 +130,7 @@ class PreProcessing(ABCPreProcessing):
 def main():
     arg = sys.argv[-1]
     if arg=="save":
-        PreProcessing.save_train_data(130000,window_size=25)
+        PreProcessing.save_train_data(130000,window_size=100)
     elif arg=="load":
         PreProcessing.load_train_data()
     else:
