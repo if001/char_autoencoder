@@ -107,8 +107,8 @@ class PreProcessing(ABCPreProcessing):
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         print("save")
-        np.save(Config.run_dir_path + "/train",train_data)
-        np.save(Config.run_dir_path + "/teach",teach_data)
+        np.save(Config.run_dir_path + "/train-"+str(data_size)+str(window_size),train_data)
+        np.save(Config.run_dir_path + "/teach-"+str(data_size)+str(window_size),teach_data)
 
     @classmethod
     def load_train_data(cls):
