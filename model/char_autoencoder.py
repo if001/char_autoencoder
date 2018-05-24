@@ -20,7 +20,7 @@ class CharAutoencoder(abc_model.ABCModel):
         callbacks.append(keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=5, verbose=1, mode='auto'))
 
-        callbacks.append(keras.callbacks.TensorBoard(log_dir=config.run_dir_path + 'tflog', histogram_freq=1))
+        callbacks.append(keras.callbacks.TensorBoard(log_dir=config.Config.run_dir_path + 'tflog', histogram_freq=1))
 
         return callbacks
 
@@ -28,18 +28,12 @@ class CharAutoencoder(abc_model.ABCModel):
     def make_simple_model(cls):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         x = Dense(256, activation='sigmoid')(layer_input)
-        x = LSTM(128, return_sequences=True)(x)
+        x = LSTM(700, return_sequences=True)(x)
         x = Dropout(0.2)(x)
-        x = LSTM(256, return_sequences=True)(x)
+        x = LSTM(700, return_sequences=True)(x)
         x = Dropout(0.3)(x)
-        x = LSTM(128, return_sequences=True)(x)
+        x = LSTM(700, return_sequences=True)(x)
         x = Dropout(0.5)(x)
-        x = LSTM(256, return_sequences=True)(x)
-        x = Dropout(0.5)(x)
-        x = LSTM(128, return_sequences=True)(x)
-        x = Dropout(0.6)(x)
-        x = LSTM(256, return_sequences=True)(x)
-        x = Dropout(0.7)(x)
         layer_output = Dense(128, activation='relu')(x)
         model = Model(layer_input, layer_output)
         model.summary()
