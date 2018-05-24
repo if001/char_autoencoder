@@ -20,6 +20,8 @@ class CharAutoencoder(abc_model.ABCModel):
         callbacks.append(keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=5, verbose=1, mode='auto'))
 
+        callbacks.append(keras.callbacks.TensorBoard(log_dir=config.run_dir_path + 'tflog', histogram_freq=1))
+
         return callbacks
 
     @classmethod
