@@ -108,14 +108,14 @@ class PreProcessing(ABCPreProcessing):
         print("teach shape:", teach_data.shape)
         print("save")
         np.save(Config.run_dir_path + "/train-" +
-                str(data_size) + str(window_size), train_data)
+                str(data_size) + "-" + str(window_size), train_data)
         np.save(Config.run_dir_path + "/teach-" +
-                str(data_size) + str(window_size), teach_data)
+                str(data_size) + "-" + str(window_size), teach_data)
 
     @classmethod
     def load_train_data(cls):
-        train_data = np.load(Config.run_dir_path + "/train-130000-25.npy")
-        teach_data = np.load(Config.run_dir_path + "/teach-130000-25.npy")
+        train_data = np.load(Config.run_dir_path + "/train-60000-25.npy")
+        teach_data = np.load(Config.run_dir_path + "/teach-60000-25.npy")
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data, teach_data
@@ -133,7 +133,7 @@ class PreProcessing(ABCPreProcessing):
 def main():
     arg = sys.argv[-1]
     if arg == "save":
-        PreProcessing.save_train_data(160000, window_size=25)
+        PreProcessing.save_train_data(60000, window_size=25)
     elif arg == "load":
         PreProcessing.load_train_data()
     else:

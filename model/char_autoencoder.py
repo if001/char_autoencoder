@@ -28,10 +28,7 @@ class CharAutoencoder(abc_model.ABCModel):
     @classmethod
     def make_simple_model(cls):
         layer_input = Input(shape=(None, 4 * 4 * 8))
-        x = Dense(256, activation='sigmoid')(layer_input)
-        x = LSTM(700, return_sequences=True)(x)
-        x = Dropout(0.2)(x)
-        x = LSTM(700, return_sequences=True)(x)
+        x = LSTM(700, return_sequences=True)(layer_input)
         x = Dropout(0.3)(x)
         x = LSTM(700, return_sequences=True)(x)
         x = Dropout(0.5)(x)
