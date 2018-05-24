@@ -85,8 +85,8 @@ class PreProcessing(ABCPreProcessing):
         window_sentence = []
         train_data = []
         teach_data = []
-
-        print("number of chars:",len(word_list))
+        print("window size: ", window_size)
+        print("number of chars:", len(word_list))
         if len(word_list) < data_size:
             print("error! data_size is over number of char!")
             exit(0)
@@ -107,8 +107,10 @@ class PreProcessing(ABCPreProcessing):
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         print("save")
-        np.save(Config.run_dir_path + "/train-"+str(data_size)+str(window_size),train_data)
-        np.save(Config.run_dir_path + "/teach-"+str(data_size)+str(window_size),teach_data)
+        np.save(Config.run_dir_path + "/train-" +
+                str(data_size) + str(window_size), train_data)
+        np.save(Config.run_dir_path + "/teach-" +
+                str(data_size) + str(window_size), teach_data)
 
     @classmethod
     def load_train_data(cls):
@@ -116,10 +118,10 @@ class PreProcessing(ABCPreProcessing):
         teach_data = np.load(Config.run_dir_path + "/teach.npy")
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
-        return train_data,teach_data
+        return train_data, teach_data
 
     @classmethod
-    def make_test_data(cls,char):
+    def make_test_data(cls, char):
         autoencoder = SimpleAutoencoder.load_model("cnn_model.hdf5")
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
         feature = get_feature.char2feature(char, encoder)
@@ -127,15 +129,17 @@ class PreProcessing(ABCPreProcessing):
         print(feature.shape)
         return feature
 
+
 def main():
     arg = sys.argv[-1]
-    if arg=="save":
-        PreProcessing.save_train_data(160000,window_size=100)
-    elif arg=="load":
+    if arg == "save":
+        PreProcessing.save_train_data(160000, window_size=25)
+    elif arg == "load":
         PreProcessing.load_train_data()
     else:
         print("set args [save] or [load]")
         exit(0)
+
 
 if __name__ == '__main__':
     main()
