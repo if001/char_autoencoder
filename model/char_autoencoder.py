@@ -28,10 +28,12 @@ class CharAutoencoder(abc_model.ABCModel):
     @classmethod
     def make_simple_model(cls):
         layer_input = Input(shape=(None, 4 * 4 * 8))
-        x = LSTM(700, return_sequences=True)(layer_input)
+        x = LSTM(800, return_sequences=True)(layer_input)
         x = Dropout(0.3)(x)
-        x = LSTM(700, return_sequences=True)(x)
+        x = LSTM(500, return_sequences=True)(x)
         x = Dropout(0.5)(x)
+        x = LSTM(800, return_sequences=True)(x)
+        x = Dropout(0.6)(x)
         layer_output = Dense(128, activation='relu')(x)
         model = Model(layer_input, layer_output)
         model.summary()
