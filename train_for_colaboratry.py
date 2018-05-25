@@ -52,7 +52,9 @@ def set_struct():
     return __struct_dict
 
 
+
 def main():
+    train, teach = PreProcessing().load_train_data()
     for struct in set_struct():
         char_model = CharAutoencoder().create_model(struct["unit"])
         cbs = CharAutoencoder().set_callbacks(Config.save_model)
