@@ -114,8 +114,8 @@ class PreProcessing(ABCPreProcessing):
 
     @classmethod
     def load_train_data(cls):
-        train_data = np.load(Config.run_dir_path + "/train-60000-25.npy")
-        teach_data = np.load(Config.run_dir_path + "/teach-60000-25.npy")
+        train_data = np.load(Config.run_dir_path + "/train-160000-25.npy")
+        teach_data = np.load(Config.run_dir_path + "/teach-160000-25.npy")
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data, teach_data
