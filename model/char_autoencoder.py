@@ -44,29 +44,54 @@ class CharAutoencoder(abc_model.ABCModel):
                       metrics=[config.Config.metrics])
         return model
 
+    # decoratorとか作ったけどいらんかった
+    # けど頑張ったから残す
+    # def make_model(func):
+    #     def _new_func(*args, **kwargs):
+    #         model = func(*args, **kwargs)
+    #         model.summary()
+    #         model.compile(loss=config.Config.loss,
+    #                        optimizer=config.Config.optimizer,
+    #                        metrics=[config.Config.metrics])
+    #         return model
+    #     return _new_func
+
+    # # run for colaboratory
+    # @make_model
+    # def __model(cls, struct):
+    #     layer_input = Input(shape=(None, 4 * 4 * 8))
+    #     _in = layer_input
+    #     for i in range(len(struct)):
+    #         x = LSTM(struct[i], return_sequences=True)(layer_input)
+    #         x = Dropout(0.5)(x)
+    #     layer_output = Dense(128, activation='relu')(x)
+    #     model = Model(layer_input, layer_output)
+    #     return model
+
+    # @classmethod
+    # def create_model(cls, struct):
+    #     return cls.__model(cls, struct)
+
     @classmethod
-    def make_model(cls):
-        encoder_input = Input(shape=(None, 4 * 4 * 8))
-
-        x = Dense(512, activation='sigmoid')(encoder_input)
-        x, state_h, state_c = LSTM(
-            256, return_state=True)(x)
-        states = [state_h, state_c]
-        decoder_input = Input(shape=(None, 4 * 4 * 8))
-        x = Dense(512, activation='sigmoid')(decoder_input)
-        decoder_output = LSTM(256, return_sequences=True)(
-            x, initial_state=states)
-
-        model = Model([encoder_input, decoder_input], decoder_output)
+    def create_model(cls, struct):
+        layer_input = Input(shape=(None, 4 * 4 * 8))
+        __in = layer_input
+        for i in range(len(struct)):
+            x = LSTM(struct[i], return_sequences=True)(__in)
+            x = Dropout(0.5)(x)
+            __in = x
+    
+        layer_output = Dense(128, activation='relu')(x)
+        model = Model(layer_input, layer_output)
         model.summary()
-
         model.compile(loss=config.Config.loss,
                       optimizer=config.Config.optimizer,
                       metrics=[config.Config.metrics])
         return model
 
     @classmethod
-    def save_model(cls, model):
+    def save_model(cls, model, name):
+        fname = run_dir_path + "/weight/" + "char_model-" + name + ".hdf5"
         print("save" + config.Config.save_model)
         model.save(config.Config.save_model)
 
