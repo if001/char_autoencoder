@@ -19,7 +19,7 @@ class CharAutoencoder(abc_model.ABCModel):
             filepath=fname, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))
 
         callbacks.append(keras.callbacks.EarlyStopping(
-            monitor='val_loss', patience=5, verbose=1, mode='auto'))
+            monitor='val_loss', patience=2, verbose=1, mode='auto'))
 
         callbacks.append(keras.callbacks.TensorBoard(
             log_dir=config.Config.run_dir_path + '/tflog', histogram_freq=1))
