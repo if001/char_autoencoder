@@ -13,6 +13,7 @@ class CharAutoencoder(abc_model.ABCModel):
         # fname = 'weights.{epoch:02d}-{loss:.2f}-{acc:.2f}-{val_loss:.2f}-{val_acc:.2f}.hdf5'
         # fpath = config.Config.run_dir_path + "/weight/" + fname
         # print(fpath)
+        fname = run_dir_path + "/weight/" + "char_model-" + fname + ".hdf5"
         callbacks = []
         callbacks.append(keras.callbacks.ModelCheckpoint(
             filepath=fname, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))

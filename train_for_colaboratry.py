@@ -57,7 +57,7 @@ def main():
     train, teach = PreProcessing().load_train_data()
     for struct in set_struct():
         char_model = CharAutoencoder().create_model(struct["unit"])
-        cbs = CharAutoencoder().set_callbacks(Config.save_model)
+        cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
 
