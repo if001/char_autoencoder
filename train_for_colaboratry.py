@@ -49,7 +49,28 @@ def set_struct():
     Struct.depth("deep"     , [[250, 125, 60, 30, 60, 125, 250],[500, 250, 125, 60, 125, 250, 500],[800, 400, 200, 100, 200, 400, 800],[1200, 600, 300, 150, 300, 600, 1200]])
     Struct.depth("up_deep"  , [[250, 500, 250, 125, 250, 500, 250],[500, 800, 500, 250, 500, 800, 500],[800, 400, 800, 250, 800, 400, 800],[1200, 600, 1200, 300, 1200, 600, 1200]])
     __struct_dict = Struct.reshape()
+
+
+    __struct_dict = [
+        {
+            "name":"min_shallow",
+            "unit":[800]
+        },
+        {"name":"small_middle",
+         "unit":[500,250 ,125, 250, 500]
+        },
+        {
+            "name":"large_middle",
+            "unit":[800, 400, 800]
+        },
+        {
+            "name":"big_middle",
+            "unit":[1200, 600, 1200]
+        }
+    ]
     return __struct_dict
+
+
 
 def main():
     train, teach = PreProcessing().load_train_data()
