@@ -1,8 +1,10 @@
 from preprocessing.preprocessing_mod import PreProcessing
 from keras.backend import tensorflow_backend as backend
 from model.config import Config
+from model.char_autoencoder import CharAutoencoder
+from model_exec.learning import Learning
+from keras.backend import tensorflow_backend as backend
 import numpy as np
-import sys
 data_size = 60000
 test_size = 10000
 
@@ -49,24 +51,14 @@ def set_struct():
     __struct_dict = Struct.reshape()
     return __struct_dict
 
-
-
-def t(struct, train, teach):
-    from model.char_autoencoder import CharAutoencoder
-    from model_exec.learning import Learning
-    char_model = CharAutoencoder().create_model(struct["unit"])
-    cbs = CharAutoencoder().set_callbacks(struct["name"])
-    hist = Learning.run(char_model, train, teach, cbs)
-    CharAutoencoder().save_model(char_model, struct["name"])
-    del char_model
-    del CharAutoencoder
-    del Learning
-
 def main():
     train, teach = PreProcessing().load_train_data()
-
     for struct in set_struct():
-        t(struct, train, teach)
-        
+        char_model = CharAutoencoder().create_model(struct["unit"])
+        cbs = CharAutoencoder().set_callbacks(struct["name"])
+        hist = Learning.run(char_model, train, teach, cbs)
+        CharAutoencoder().save_model(char_model, struct["name"])
+        backend.clear_session()
+
 if __name__ == '__main__':
     main()

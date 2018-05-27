@@ -6,8 +6,13 @@ from keras.layers import Dense, Dropout, Input, LSTM
 from keras.layers.wrappers import TimeDistributed as TD
 from keras.models import Model
 
+from keras.backend import tensorflow_backend as backend
 
 class CharAutoencoder(abc_model.ABCModel):
+    def __del__(self):
+        print("del session")
+        backend.clear_session()
+
     @classmethod
     def set_callbacks(cls, fname):
         # fname = 'weights.{epoch:02d}-{loss:.2f}-{acc:.2f}-{val_loss:.2f}-{val_acc:.2f}.hdf5'
