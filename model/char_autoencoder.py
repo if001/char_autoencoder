@@ -9,9 +9,9 @@ from keras.models import Model
 from keras.backend import tensorflow_backend as backend
 
 class CharAutoencoder(abc_model.ABCModel):
-    def __del__(self):
-        print("del session")
-        backend.clear_session()
+    # def __del__(self):
+    #     print("del session")
+    #     backend.clear_session()
 
     @classmethod
     def set_callbacks(cls, fname):
