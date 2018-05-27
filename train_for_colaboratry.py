@@ -60,7 +60,7 @@ def main():
         cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
-
+        del char_model #classの解放
 
 if __name__ == '__main__':
     main()
