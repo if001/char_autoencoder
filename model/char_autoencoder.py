@@ -92,7 +92,7 @@ class CharAutoencoder(abc_model.ABCModel):
 
     @classmethod
     def save_model(cls, model, name):
-        fname = run_dir_path + "/weight/" + "char_model-" + name + ".hdf5"
+        fname = config.Config.run_dir_path + "/weight/" + "char_model-" + name + ".hdf5"
         print("save" + config.Config.save_model)
         model.save(config.Config.save_model)
 
