@@ -51,7 +51,7 @@ def set_struct():
 
 
 
-def loop(struct):
+def t(struct):
     from model.char_autoencoder import CharAutoencoder
     from model_exec.learning import Learning
     char_model = CharAutoencoder().create_model(struct["unit"])
@@ -66,7 +66,7 @@ def main():
     train, teach = PreProcessing().load_train_data()
 
     for struct in set_struct():
-        loop(struct)
+        t(struct)
         del loop
 
 if __name__ == '__main__':
