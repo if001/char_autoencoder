@@ -73,15 +73,14 @@ class CharAutoencoder(abc_model.ABCModel):
     # def create_model(cls, struct):
     #     return cls.__model(cls, struct)
 
-    @classmethod
-    def create_model(cls, struct):
+    def create_model(self, struct):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         __in = layer_input
         for i in range(len(struct)):
             x = LSTM(struct[i], return_sequences=True)(__in)
             x = Dropout(0.5)(x)
             __in = x
-    
+
         layer_output = Dense(128, activation='relu')(x)
         model = Model(layer_input, layer_output)
         model.summary()
