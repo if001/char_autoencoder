@@ -32,8 +32,8 @@ class Struct():
         """
         __struct_arr = []
         for depth in cls.depth_dict_arr:
-            __struct_dict = {}
             for i in range(len(cls.unit_name)):
+                __struct_dict = {}
                 __struct_dict["name"] = depth["prefix"] + "_" + cls.unit_name[i]
                 __struct_dict["unit"] = depth["arr"][i]
                 __struct_arr.append(__struct_dict)
@@ -42,7 +42,7 @@ class Struct():
 
 def set_struct():
     Struct.set_unit_name(["min", "small", "large", "big"])
-    Struct.depth("shallow"  , [[250],[500],[800],[1200]])
+    Struct.depth("shallow"  , [[125],[250],[500],[800]])
     Struct.depth("middle"   , [[250, 125, 250],[500, 250, 500],[800, 400, 800],[1200, 600, 1200]])
     Struct.depth("middle2"  , [[250, 125, 60, 125, 250],[500,250 ,125, 250, 500],[800, 400, 200, 400, 800],[1200, 600, 300, 600, 1200]])
     Struct.depth("up_middle", [[250, 500, 250, 500, 250],[500,1000, 500, 1000, 500],[800, 1600, 800, 1600, 800],[1200, 2400, 1200, 2400, 1200]])

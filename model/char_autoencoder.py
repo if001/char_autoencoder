@@ -15,8 +15,8 @@ class CharAutoencoder(abc_model.ABCModel):
         # print(fpath)
         fname = config.Config.run_dir_path + "/weight/" + "char_model-" + fname + ".hdf5"
         callbacks = []
-        callbacks.append(keras.callbacks.ModelCheckpoint(
-            filepath=fname, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))
+        # callbacks.append(keras.callbacks.ModelCheckpoint(
+        #     filepath=fname, monitor='val_loss', verbose=1, save_best_only=True, mode='auto'))
 
         callbacks.append(keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=0, verbose=1, mode='auto'))
