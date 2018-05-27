@@ -1,4 +1,3 @@
-
 from preprocessing.preprocessing_mod import PreProcessing
 
 import numpy as np
@@ -48,6 +47,8 @@ def set_struct():
     Struct.depth("up_deep"  , [[250, 500, 250, 125, 250, 500, 250],[500, 800, 500, 250, 500, 800, 500],[800, 400, 800, 250, 800, 400, 800],[1200, 600, 1200, 300, 1200, 600, 1200]])
     __struct_dict = Struct.reshape()
     return __struct_dict
+
+
 
 
 
