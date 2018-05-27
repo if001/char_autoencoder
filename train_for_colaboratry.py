@@ -1,5 +1,5 @@
 from preprocessing.preprocessing_mod import PreProcessing
-
+from keras.backend import tensorflow_backend as backend
 import numpy as np
 from model.config import Config
 data_size = 60000
@@ -61,6 +61,7 @@ def main():
         cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
+        backend.clear_session()
         del CharAutoencoder
         del Learning
 
