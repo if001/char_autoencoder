@@ -51,11 +51,7 @@ def set_struct():
 
 
 
-def main():
-    train, teach = PreProcessing().load_train_data()
-    arg = sys.argv[-1]
-    set_struct()[arg]
-
+def loop():
     from model.char_autoencoder import CharAutoencoder
     from model_exec.learning import Learning
     char_model = CharAutoencoder().create_model(struct["unit"])
@@ -65,7 +61,13 @@ def main():
     del char_model
     del CharAutoencoder
     del Learning
-    backend.clear_session()
+
+def main():
+    train, teach = PreProcessing().load_train_data()
+
+    for struct in set_struct():
+        loop(struct)
+        del loop
 
 if __name__ == '__main__':
     main()
