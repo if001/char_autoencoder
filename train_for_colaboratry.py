@@ -1,8 +1,6 @@
 
-from model.char_autoencoder import CharAutoencoder
 from preprocessing.preprocessing_mod import PreProcessing
-from model_exec.learning import Learning
-from model_exec.predict import Predict
+
 import numpy as np
 from model.config import Config
 data_size = 60000
@@ -56,11 +54,14 @@ def set_struct():
 def main():
     train, teach = PreProcessing().load_train_data()
     for struct in set_struct():
+        from model.char_autoencoder import CharAutoencoder
+        from model_exec.learning import Learning
         char_model = CharAutoencoder().create_model(struct["unit"])
         cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
-        del char_model #classの解放
+        del CharAutoencoder
+        del Learning
 
 if __name__ == '__main__':
     main()
