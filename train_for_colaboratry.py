@@ -51,7 +51,7 @@ def set_struct():
 
 
 
-def loop():
+def loop(struct):
     from model.char_autoencoder import CharAutoencoder
     from model_exec.learning import Learning
     char_model = CharAutoencoder().create_model(struct["unit"])
