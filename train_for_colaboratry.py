@@ -67,6 +67,6 @@ def main():
 
     for struct in set_struct():
         t(struct, train, teach)
-        del t
+        
 if __name__ == '__main__':
     main()
