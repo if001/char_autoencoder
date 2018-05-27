@@ -61,9 +61,9 @@ def main():
         cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
-        backend.clear_session()
+        del char_model
         del CharAutoencoder
         del Learning
-
+        backend.clear_session()
 if __name__ == '__main__':
     main()
