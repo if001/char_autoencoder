@@ -1,4 +1,4 @@
-from keras.optimizers import RMSprop
+from keras.optimizers import RMSprop, Adam
 import os
 
 
@@ -8,4 +8,5 @@ class Config():
     loss = 'binary_crossentropy'
     loss = 'mean_squared_error'
     optimizer = 'adam'
+    optimizer = Adam(lr=0.0008)
     metrics = 'accuracy'
