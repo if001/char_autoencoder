@@ -8,5 +8,5 @@ class Config():
     loss = 'binary_crossentropy'
     loss = 'mean_squared_error'
     optimizer = 'adam'
-    optimizer = Adam(lr=0.0008)
+    optimizer = Adam(lr=0.0007)
     metrics = 'accuracy'
