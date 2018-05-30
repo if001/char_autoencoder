@@ -5,17 +5,20 @@ import keras
 from keras.layers import Dense, Dropout, Input, LSTM
 from keras.layers.wrappers import TimeDistributed as TD
 from keras.models import Model
-
 from keras.backend import tensorflow_backend as backend
+from keras.optimizers import RMSprop, Adam, Adadelta,SGD
 
 class CharAutoencoder(abc_model.ABCModel):
     # def __del__(self):
     #     print("del session")
     #     backend.clear_session()
+    @classmethod
+    def clear_session(cls):
+        backend.clear_session()
 
+    
     @classmethod
     def set_callbacks(cls, fname):
-        # fname = 'weights.{epoch:02d}-{loss:.2f}-{acc:.2f}-{val_loss:.2f}-{val_acc:.2f}.hdf5'
         # fpath = config.Config.run_dir_path + "/weight/" + fname
         # print(fpath)
         fname = config.Config.run_dir_path + "/weight/" + "char_model-" + fname + ".hdf5"
@@ -26,8 +29,8 @@ class CharAutoencoder(abc_model.ABCModel):
         callbacks.append(keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=0, verbose=1, mode='auto'))
 
-        callbacks.append(keras.callbacks.TensorBoard(
-            log_dir=config.Config.run_dir_path + '/tflog', histogram_freq=1))
+        # callbacks.append(keras.callbacks.TensorBoard(
+        #     log_dir=config.Config.run_dir_path + '/tflog', histogram_freq=1))
 
         return callbacks
 
@@ -90,7 +93,7 @@ class CharAutoencoder(abc_model.ABCModel):
         model = Model(layer_input, layer_output)
         model.summary()
         model.compile(loss=config.Config.loss,
-                      optimizer=config.Config.optimizer,
+                      optimizer=Adam(lr=0.0005),
                       metrics=[config.Config.metrics])
         return model
 
