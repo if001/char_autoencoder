@@ -16,7 +16,7 @@ class CharAutoencoder(abc_model.ABCModel):
     def clear_session(cls):
         backend.clear_session()
 
-    
+
     @classmethod
     def set_callbacks(cls, fname):
         # fpath = config.Config.run_dir_path + "/weight/" + fname
@@ -93,7 +93,7 @@ class CharAutoencoder(abc_model.ABCModel):
         model = Model(layer_input, layer_output)
         model.summary()
         model.compile(loss=config.Config.loss,
-                      optimizer=Adam(lr=0.0005),
+                      optimizer=SGD(),
                       metrics=[config.Config.metrics])
         return model
 
