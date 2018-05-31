@@ -1,10 +1,15 @@
 from preprocessing.preprocessing_mod import PreProcessing
-from keras.backend import tensorflow_backend as backend
+
 from model.config import Config
 from model.char_autoencoder import CharAutoencoder
 from model_exec.learning import Learning
 from keras.backend import tensorflow_backend as backend
 import numpy as np
+
+from keras.backend import tensorflow_backend as backend
+from keras import backend as K
+
+
 data_size = 60000
 test_size = 10000
 
@@ -42,7 +47,7 @@ class Struct():
 
 def set_struct():
     Struct.set_unit_name(["min", "small", "large", "big"])
-    Struct.depth("shallow"  , [[125],[250],[500],[800]])
+    # Struct.depth("shallow"  , [[125],[250],[500],[800]])
     Struct.depth("middle"   , [[250, 125, 250],[500, 250, 500],[800, 400, 800],[1200, 600, 1200]])
     Struct.depth("middle2"  , [[250, 125, 60, 125, 250],[500,250 ,125, 250, 500],[800, 400, 200, 400, 800],[1200, 600, 300, 600, 1200]])
     Struct.depth("up_middle", [[250, 500, 250, 500, 250],[500,1000, 500, 1000, 500],[800, 1600, 800, 1600, 800],[1200, 2400, 1200, 2400, 1200]])
@@ -74,11 +79,16 @@ def set_struct():
 def main():
     train, teach = PreProcessing().load_train_data()
     for struct in set_struct():
+        char_model = None
         char_model = CharAutoencoder().create_model(struct["unit"])
+
         cbs = CharAutoencoder().set_callbacks(struct["name"])
         hist = Learning.run(char_model, train, teach, cbs)
         CharAutoencoder().save_model(char_model, struct["name"])
+        CharAutoencoder().clear_session()
         backend.clear_session()
+
+        #K.clear_session()
 
 if __name__ == '__main__':
     main()

@@ -8,7 +8,7 @@ class Learning():
     doc
     '''
     @classmethod
-    def run_with_test(cls, model, x_train, y_train, x_test, y_test, cbs):
+    def run_with_test(cls, model, x_train, y_train, x_test, y_test, cbs=None):
         history = model.fit(x_train, y_train,
                             batch_size=config.Config.batch_size,
                             epochs=config.Config.epochs,
@@ -19,12 +19,12 @@ class Learning():
         return history
 
     @classmethod
-    def run(cls, model, x_train, y_train, cbs):
+    def run(cls, model, x_train, y_train, cbs=None):
         history = model.fit(x_train, y_train,
                             batch_size=config.Config.batch_size,
                             epochs=config.Config.epochs,
-                            validation_split=config.Config.validation_split,
-                            callbacks=cbs
+                            callbacks=cbs,
+                            validation_split=config.Config.validation_split
                             )
         return history
 
