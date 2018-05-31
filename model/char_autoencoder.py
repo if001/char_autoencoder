@@ -93,7 +93,7 @@ class CharAutoencoder(abc_model.ABCModel):
         model = Model(layer_input, layer_output)
         model.summary()
         model.compile(loss=config.Config.loss,
-                      optimizer=Adadelta(),
+                      optimizer=RMSprop(),
                       metrics=[config.Config.metrics])
         return model
 
