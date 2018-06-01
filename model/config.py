@@ -1,4 +1,4 @@
-from keras.optimizers import RMSprop, Adam, Adadelta,SGD
+from keras.optimizers import RMSprop, Adam, Adadelta, SGD
 import os
 
 
@@ -9,7 +9,7 @@ class Config():
     loss = 'mean_squared_error'
     # print(0.0005)
     # optimizer = Adam(lr=0.0005,decay=0.001)
-    #optimizer = Adam(lr=0.0008)
+    # optimizer = Adam(lr=0.0008)
     # optimizer = Adadelta()
     # optimizer = SGD()
     metrics = 'accuracy'

@@ -6,7 +6,8 @@ from keras.layers import Dense, Dropout, Input, LSTM
 from keras.layers.wrappers import TimeDistributed as TD
 from keras.models import Model
 from keras.backend import tensorflow_backend as backend
-from keras.optimizers import RMSprop, Adam, Adadelta,SGD
+from keras.optimizers import RMSprop, Adam, Adadelta, SGD
+
 
 class CharAutoencoder(abc_model.ABCModel):
     # def __del__(self):
@@ -15,7 +16,6 @@ class CharAutoencoder(abc_model.ABCModel):
     @classmethod
     def clear_session(cls):
         backend.clear_session()
-
 
     @classmethod
     def set_callbacks(cls, fname):
@@ -81,7 +81,7 @@ class CharAutoencoder(abc_model.ABCModel):
     # def create_model(cls, struct):
     #     return cls.__model(cls, struct)
 
-    def create_model(self, struct):
+    def create_model(self, struct, opt):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         __in = layer_input
         for i in range(len(struct)):
@@ -93,8 +93,7 @@ class CharAutoencoder(abc_model.ABCModel):
         model = Model(layer_input, layer_output)
         model.summary()
         model.compile(loss=config.Config.loss,
-                      # optimizer=RMSprop(),
-                      optimizer=Adadelta(),
+                      optimizer=opt,
                       metrics=[config.Config.metrics])
         return model
 
