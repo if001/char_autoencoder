@@ -85,10 +85,10 @@ def set_struct():
 
 def main():
     train, teach = PreProcessing().load_train_data()
-    opts = [Adadelta(), RMSprop(), Adam(), SGD()]
+
     for struct in set_struct():
-        for opt in opts:
-            char_model = CharAutoencoder.create_model(struct["unit"], opt)
+        for i in range(3):
+            char_model = CharAutoencoder.create_model(struct["unit"], i)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
             hist = Learning.run(char_model, train, teach, cbs)
             CharAutoencoder.save_model(char_model, struct["name"])
