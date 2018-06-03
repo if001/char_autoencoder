@@ -79,7 +79,7 @@ class CharAutoencoder(abc_model.ABCModel):
     #     return cls.__model(cls, struct)
 
     @classmethod
-    def create_model(struct, opt):
+    def create_model(cls, struct, opt):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         __in = layer_input
         for i in range(len(struct)):
