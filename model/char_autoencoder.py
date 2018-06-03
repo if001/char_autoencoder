@@ -10,9 +10,6 @@ from keras.optimizers import RMSprop, Adam, Adadelta, SGD
 
 
 class CharAutoencoder(abc_model.ABCModel):
-    # def __del__(self):
-    #     print("del session")
-    #     backend.clear_session()
     @classmethod
     def clear_session(cls):
         backend.clear_session()
@@ -81,7 +78,8 @@ class CharAutoencoder(abc_model.ABCModel):
     # def create_model(cls, struct):
     #     return cls.__model(cls, struct)
 
-    def create_model(self, struct, opt):
+    @classmethod
+    def create_model(struct, opt):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         __in = layer_input
         for i in range(len(struct)):

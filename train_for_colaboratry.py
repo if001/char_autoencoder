@@ -85,17 +85,14 @@ def set_struct():
 
 def main():
     train, teach = PreProcessing().load_train_data()
-
-    opts = [RMSprop(), Adam(), Adadelta(), SGD()]
-
+    opts = [Adadelta(), RMSprop(), Adam(), SGD()]
     for struct in set_struct():
         for opt in opts:
-            char_model = CharAutoencoder().create_model(struct["unit"], opts)
-
-            cbs = CharAutoencoder().set_callbacks(struct["name"])
+            char_model = CharAutoencoder.create_model(struct["unit"], opts)
+            cbs = CharAutoencoder.set_callbacks(struct["name"])
             hist = Learning.run(char_model, train, teach, cbs)
-            CharAutoencoder().save_model(char_model, struct["name"])
-            CharAutoencoder().clear_session()
+            CharAutoencoder.save_model(char_model, struct["name"])
+            CharAutoencoder.clear_session()
             backend.clear_session()
         # K.clear_session()
 
