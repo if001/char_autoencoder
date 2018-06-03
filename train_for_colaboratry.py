@@ -88,7 +88,7 @@ def main():
     opts = [Adadelta(), RMSprop(), Adam(), SGD()]
     for struct in set_struct():
         for opt in opts:
-            char_model = CharAutoencoder.create_model(struct["unit"], opts)
+            char_model = CharAutoencoder.create_model(struct["unit"], opt)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
             hist = Learning.run(char_model, train, teach, cbs)
             CharAutoencoder.save_model(char_model, struct["name"])
