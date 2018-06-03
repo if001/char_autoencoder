@@ -91,8 +91,9 @@ class CharAutoencoder(abc_model.ABCModel):
         layer_output = Dense(128, activation='relu')(x)
         model = Model(layer_input, layer_output)
         model.summary()
+        print(idx,opts[idx])
         model.compile(loss=config.Config.loss,
-                      optimizer=opts[i],
+                      optimizer=opts[idx],
                       metrics=[config.Config.metrics])
         return model
 
