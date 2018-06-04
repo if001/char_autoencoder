@@ -26,7 +26,7 @@ class Struct():
     def depth(cls, name, arr):
         if len(arr) != len(cls.unit_name):
             print("arr len is " + str(len(arr)) + " . " +
-                  "unit_name len " + ser(len(cls.unit_name)))
+                  "unit_name len " + str(len(cls.unit_name)))
             exit(0)
         cls.depth_dict_arr.append({"prefix": name, "arr": arr})
 
@@ -85,16 +85,23 @@ def set_struct():
 
 def main():
     train, teach = PreProcessing().load_train_data()
-
+    hists = []
+    opts = [Adadelta, RMSprop, Adam, SGD]
     for struct in set_struct():
-        for i in range(3):
-            char_model = CharAutoencoder.create_model(struct["unit"], i)
+        for opt in opts:
+            char_model = CharAutoencoder.create_model(
+                struct["unit"], opt)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
             hist = Learning.run(char_model, train, teach, cbs)
             CharAutoencoder.save_model(char_model, struct["name"])
             CharAutoencoder.clear_session()
             backend.clear_session()
-        # K.clear_session()
+
+            hists.append(struct)
+            opt_name = str(opt()).split(" ")[0].split(".")[-1]
+            hists.append({"optimizer": opt_name})
+            hists.append(hist.history)
+    print(hists)
 
 
 if __name__ == '__main__':
