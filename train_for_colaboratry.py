@@ -101,6 +101,7 @@ def main():
             opt_name = str(opt()).split(" ")[0].split(".")[-1]
             hists.append({"optimizer": opt_name})
             hists.append(hist.history)
+
     print(hists)
 
 
