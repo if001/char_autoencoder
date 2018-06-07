@@ -83,6 +83,7 @@ def main():
     for struct in set_struct():
         for lr in lrs:
             print(lr)
+            tmp_hists = []
             char_model = CharAutoencoder.create_model(
                 struct["unit"], Adam, lr)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
@@ -91,10 +92,13 @@ def main():
             CharAutoencoder.clear_session()
             backend.clear_session()
 
-            hists.append(struct)
+            tmp_hists.append(struct["unit"])
             opt_name = str(opt()).split(" ")[0].split(".")[-1]
-            hists.append({"optimizer": opt_name})
-            hists.append(hist.history)
+            tmp_hists.append({"optimizer": opt_name})
+            tmp_hists.append({"lr": str(lr)})
+            tmp_hists.append(hist.history)
+            print(tmp_hists)
+        hists.append(tmp_hists)
 
     print(hists)
 
