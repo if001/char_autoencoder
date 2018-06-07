@@ -63,10 +63,6 @@ def set_struct():
     __struct_dict = Struct.reshape()
 
     __struct_dict = [
-        {
-            "name": "min_shallow",
-            "unit": [512]
-        },
         {"name": "small_shallow",
          "unit": [512, 256, 512]
          }
@@ -78,12 +74,16 @@ def main():
     train, teach = PreProcessing().load_train_data()
     hists = []
     opt = Adam
+
     lrs = np.arange(1, 11, 1) / 10000
+    lrs = [0.0002]
+
     prefix_list = []
     for f in os.listdir("./preprocessing/"):
         if ".npz" in f:
             prefix_list.append("-".join(f.split("-")[1:]))
     prefix_list = list(set(prefix_list))
+
 
     for struct in set_struct():
         for lr in lrs:

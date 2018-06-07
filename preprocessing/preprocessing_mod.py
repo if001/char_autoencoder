@@ -122,7 +122,7 @@ class PreProcessing(ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            Config.up_two_dir + "aozora_data/files/files_all_rnp.txt")
+            Config.up_two_dir + "aozora_data/files/files_all_rnp_tmp.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
@@ -142,6 +142,7 @@ class PreProcessing(ABCPreProcessing):
             end = v[1]
             train_data = []
             teach_data = []
+            print("loop: " + str(start) + "-" + str(end))
             for char in word_list[start:end]:
                 sys.stdout.write("\r now:(%d/%d)" %
                                  (len(train_data), len(word_list)))
@@ -159,18 +160,20 @@ class PreProcessing(ABCPreProcessing):
             print("train shape:", train_data.shape)
             print("teach shape:", teach_data.shape)
             print("save")
-            np.savez(Config.run_dir_path + "/train-" +
+            np.savez_compressed(Config.run_dir_path + "/train-" +
                      str(start) + "-" + str(end) + "-" + str(window_size), train_data)
-            np.savez(Config.run_dir_path + "/teach-" +
+            np.savez_compressed(Config.run_dir_path + "/teach-" +
                      str(start) + "-" + str(end) + "-" + str(window_size), teach_data)
 
     @classmethod
     def load_split_train_data(cls, prefix):
         train_data = np.load(Config.run_dir_path + "/train-" + prefix)
+        train_key = train_data.keys()[-1]
         teach_data = np.load(Config.run_dir_path + "/teach-" + prefix)
-        print("train shape:", train_data.shape)
-        print("teach shape:", teach_data.shape)
-        return train_data, teach_data
+        teach_key = teach_data.keys()[-1]
+        print("train shape:", train_data[train_key].shape)
+        print("teach shape:", teach_data[teach_key].shape)
+        return train_data[train_key], teach_data[teach_key]
 
     @classmethod
     def load_train_data(cls):
@@ -193,8 +196,8 @@ class PreProcessing(ABCPreProcessing):
 def main():
     arg = sys.argv[-1]
     if arg == "save":
-        PreProcessing.save_train_data(60000, window_size=25)
-        PreProcessing.save_split_train_data(split_num=16, window_size=25)
+        # PreProcessing.save_train_data(60000, window_size=25)
+        PreProcessing.save_split_train_data(split_num=10, window_size=25)
     elif arg == "load":
         PreProcessing.load_train_data()
     else:
