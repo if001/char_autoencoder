@@ -122,7 +122,7 @@ class PreProcessing(ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            Config.up_two_dir + "aozora_data/files/files_all_rnp.txt")
+            Config.up_two_dir + "aozora_data/files/files_all_rnp_head20000.txt.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
@@ -197,7 +197,7 @@ def main():
     arg = sys.argv[-1]
     if arg == "save":
         # PreProcessing.save_train_data(60000, window_size=25)
-        PreProcessing.save_split_train_data(split_num=16, window_size=25)
+        PreProcessing.save_split_train_data(split_num=10, window_size=25)
     elif arg == "load":
         PreProcessing.load_train_data()
     else:
