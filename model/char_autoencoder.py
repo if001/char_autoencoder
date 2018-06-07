@@ -79,8 +79,7 @@ class CharAutoencoder(abc_model.ABCModel):
     #     return cls.__model(cls, struct)
 
     @classmethod
-    def create_model(cls, struct, opt):
-        opts = [Adadelta(), RMSprop(), Adam(), SGD()]
+    def create_model(cls, struct, opt, lr=0.001):
         layer_input = Input(shape=(None, 4 * 4 * 8))
         __in = layer_input
         for i in range(len(struct)):
@@ -95,7 +94,7 @@ class CharAutoencoder(abc_model.ABCModel):
         # opt_name = str(opts[idx]).split(" ")[0].split(".")[-1]
 
         model.compile(loss=config.Config.loss,
-                      optimizer=opt(),
+                      optimizer=opt(lr=lr),
                       metrics=[config.Config.metrics])
         return model
 

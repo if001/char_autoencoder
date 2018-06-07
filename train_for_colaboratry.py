@@ -63,34 +63,28 @@ def set_struct():
     #              800, 400, 800, 250, 800, 400, 800], [1200, 600, 1200, 300, 1200, 600, 1200]])
     __struct_dict = Struct.reshape()
 
-    # __struct_dict = [
-    #     {
-    #         "name": "min_shallow",
-    #         "unit": [800]
-    #     },
-    #     {"name": "small_shallow",
-    #      "unit": [500, 250, 125, 250, 500]
-    #      },
-    #     {
-    #         "name": "large_shallow",
-    #         "unit": [800, 400, 800]
-    #     },
-    #     {
-    #         "name": "big_shallow",
-    #         "unit": [1200, 600, 1200]
-    #     }
-    # ]
+    __struct_dict = [
+        {
+            "name": "min_shallow",
+            "unit": [512]
+        },
+        {"name": "small_shallow",
+         "unit": [512, 256, 512]
+         }
+    ]
     return __struct_dict
 
 
 def main():
     train, teach = PreProcessing().load_train_data()
     hists = []
-    opts = [Adadelta, RMSprop, Adam, SGD]
+    opt = Adam
+    lrs = np.arange(1, 11, 1) / 10000
     for struct in set_struct():
-        for opt in opts:
+        for lr in lrs:
+            print(lr)
             char_model = CharAutoencoder.create_model(
-                struct["unit"], opt)
+                struct["unit"], Adam, lr)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
             hist = Learning.run(char_model, train, teach, cbs)
             CharAutoencoder.save_model(char_model, struct["name"])
