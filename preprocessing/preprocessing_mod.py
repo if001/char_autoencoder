@@ -165,9 +165,9 @@ class PreProcessing(ABCPreProcessing):
                      str(start) + "-" + str(end) + "-" + str(window_size), teach_data)
 
     @classmethod
-    def load_split_train_data(cls, fname):
-        train_data = np.load(Config.run_dir_path + fname)
-        teach_data = np.load(Config.run_dir_path + fname)
+    def load_split_train_data(cls, prefix):
+        train_data = np.load(Config.run_dir_path + "/train-" + prefix)
+        teach_data = np.load(Config.run_dir_path + "/teach-" + prefix)
         print("train shape:", train_data.shape)
         print("teach shape:", teach_data.shape)
         return train_data, teach_data

@@ -4,12 +4,11 @@ from model.config import Config
 from model.char_autoencoder import CharAutoencoder
 from model_exec.learning import Learning
 from keras.backend import tensorflow_backend as backend
-import numpy as np
-
 from keras.backend import tensorflow_backend as backend
 from keras import backend as K
 from keras.optimizers import RMSprop, Adam, Adadelta, SGD
-
+import numpy as np
+import os
 data_size = 60000
 test_size = 10000
 
@@ -80,20 +79,21 @@ def main():
     hists = []
     opt = Adam
     lrs = np.arange(1, 11, 1) / 10000
-    fname_list = []
+    prefix_list = []
     for f in os.listdir("./preprocessing/"):
         if ".npz" in f:
-            fname_list.append(f)
+            prefix_list.append("-".join(f.split("-")[1:]))
+    prefix_list = list(set(prefix_list))
 
     for struct in set_struct():
-        p
         for lr in lrs:
             print(lr)
             tmp_hists = []
             char_model = CharAutoencoder.create_model(
                 struct["unit"], Adam, lr)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
-            for fname in fname_list:
+            for fname in prefix_list:
+                print("load", fname)
                 train, teach = PreProcessing().load_split_train_data(fname)
                 hist = Learning.run(char_model, train, teach, cbs)
                 print(hist)
