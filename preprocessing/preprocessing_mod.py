@@ -161,9 +161,9 @@ class PreProcessing(ABCPreProcessing):
             print("teach shape:", teach_data.shape)
             print("save")
             np.savez_compressed(Config.run_dir_path + "/train-" +
-                     str(start) + "-" + str(end) + "-" + str(window_size), train_data)
+                                str(start) + "-" + str(end) + "-" + str(window_size), train_data)
             np.savez_compressed(Config.run_dir_path + "/teach-" +
-                     str(start) + "-" + str(end) + "-" + str(window_size), teach_data)
+                                str(start) + "-" + str(end) + "-" + str(window_size), teach_data)
 
     @classmethod
     def load_split_train_data(cls, prefix):
@@ -197,7 +197,7 @@ def main():
     arg = sys.argv[-1]
     if arg == "save":
         # PreProcessing.save_train_data(60000, window_size=25)
-        PreProcessing.save_split_train_data(split_num=10, window_size=25)
+        PreProcessing.save_split_train_data(split_num=16, window_size=25)
     elif arg == "load":
         PreProcessing.load_train_data()
     else:
