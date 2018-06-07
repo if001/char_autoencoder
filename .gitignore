@@ -2,7 +2,11 @@ __pycache__
 
 model/__pycache__/*
 model_exec/__pycache__/*
+model/tflog/*
+
 preprocessing/__pycache__/*
+preprocessing/*.npy
+preprocessing/*.npz
 
 model/weight/*
 !.gitkeep

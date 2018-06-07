@@ -80,15 +80,24 @@ def main():
     hists = []
     opt = Adam
     lrs = np.arange(1, 11, 1) / 10000
+    fname_list = []
+    for f in os.listdir("./preprocessing/"):
+        if ".npz" in f:
+            fname_list.append(f)
+
     for struct in set_struct():
+        p
         for lr in lrs:
             print(lr)
             tmp_hists = []
             char_model = CharAutoencoder.create_model(
                 struct["unit"], Adam, lr)
             cbs = CharAutoencoder.set_callbacks(struct["name"])
-            hist = Learning.run(char_model, train, teach, cbs)
-            CharAutoencoder.save_model(char_model, struct["name"])
+            for fname in fname_list:
+                train, teach = PreProcessing().load_split_train_data(fname)
+                hist = Learning.run(char_model, train, teach, cbs)
+                print(hist)
+                CharAutoencoder.save_model(char_model, struct["name"])
             CharAutoencoder.clear_session()
             backend.clear_session()
 
