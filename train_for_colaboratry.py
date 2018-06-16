@@ -62,11 +62,11 @@ def set_struct():
     #              800, 400, 800, 250, 800, 400, 800], [1200, 600, 1200, 300, 1200, 600, 1200]])
     __struct_dict = Struct.reshape()
 
-    __struct_dict = [
-        {"name": "small_shallow",
-         "unit": [512, 256, 512]
-         }
-    ]
+    # __struct_dict = [
+    #     {"name": "small_shallow",
+    #      "unit": [512, 256, 512]
+    #      }
+    # ]
     return __struct_dict
 
 
@@ -83,7 +83,6 @@ def main():
         if ".npz" in f:
             prefix_list.append("-".join(f.split("-")[1:]))
     prefix_list = list(set(prefix_list))
-
 
     for struct in set_struct():
         for lr in lrs:
