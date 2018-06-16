@@ -197,7 +197,7 @@ def main():
     arg = sys.argv[-1]
     if arg == "save":
         # PreProcessing.save_train_data(60000, window_size=25)
-        PreProcessing.save_split_train_data(split_num=16, window_size=25)
+        PreProcessing.save_split_train_data(split_num=120, window_size=25)
     elif arg == "load":
         PreProcessing.load_train_data()
     else:
