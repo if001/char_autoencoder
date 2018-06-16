@@ -122,7 +122,7 @@ class PreProcessing(ABCPreProcessing):
         encoder = SimpleAutoencoder.make_encoder_model(autoencoder)
 
         word_list = PreProcessing.__get_word_lists(
-            Config.up_two_dir + "aozora_data/files/files_all_rnp.txt")
+            Config.up_two_dir + "aozora_data/files/files_all_rnp_head20000.txt")
 
         from itertools import chain
         word_list = list(chain.from_iterable(word_list))
