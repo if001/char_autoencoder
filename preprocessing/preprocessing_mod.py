@@ -167,19 +167,12 @@ class PreProcessing(ABCPreProcessing):
 
     @classmethod
     def load_split_train_data(cls, prefix):
-        load_flag = True
-        while(load_flag):
-            try:
-                train_data = np.load(Config.run_dir_path + "/train-" + prefix)
-                train_key = train_data.keys()[-1]
-                teach_data = np.load(Config.run_dir_path + "/teach-" + prefix)
-                teach_key = teach_data.keys()[-1]
-                print("train shape:", train_data[train_key].shape)
-                print("teach shape:", teach_data[teach_key].shape)
-                load_flag = False
-            except:
-                print("load error " + prefix)
-                load_flag = True
+        train_data = np.load(Config.run_dir_path + "/train-" + prefix)
+        train_key = train_data.keys()[-1]
+        teach_data = np.load(Config.run_dir_path + "/teach-" + prefix)
+        teach_key = teach_data.keys()[-1]
+        print("train shape:", train_data[train_key].shape)
+        print("teach shape:", teach_data[teach_key].shape)
         return train_data[train_key], teach_data[teach_key]
 
     @classmethod

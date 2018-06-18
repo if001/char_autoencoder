@@ -62,11 +62,11 @@ def set_struct():
     #              800, 400, 800, 250, 800, 400, 800], [1200, 600, 1200, 300, 1200, 600, 1200]])
     __struct_dict = Struct.reshape()
 
-    # __struct_dict = [
-    #     {"name": "small_shallow",
-    #      "unit": [512, 256, 512]
-    #      }
-    # ]
+    __struct_dict = [
+        {"name": "small_shallow",
+         "unit": [512, 256, 512]
+         }
+    ]
     return __struct_dict
 
 
@@ -92,10 +92,13 @@ def main():
             cbs = CharAutoencoder.set_callbacks(struct["name"])
             for fname in prefix_list:
                 print("load", fname)
-                train, teach = PreProcessing().load_split_train_data(fname)
-                hist = Learning.run(char_model, train, teach, cbs)
-                print(hist)
-                CharAutoencoder.save_model(char_model, struct["name"])
+                try:
+                    train, teach = PreProcessing().load_split_train_data(fname)
+                    hist = Learning.run(char_model, train, teach, cbs)
+                    print(hist)
+                    CharAutoencoder.save_model(char_model, struct["name"])
+                except:
+                    print("train file load error")
             CharAutoencoder.clear_session()
             backend.clear_session()
 
