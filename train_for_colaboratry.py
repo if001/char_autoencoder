@@ -71,7 +71,6 @@ def set_struct():
 
 
 def main():
-    train, teach = PreProcessing().load_train_data()
     hists = []
     opt = Adam
 
@@ -83,7 +82,6 @@ def main():
         if ".npz" in f:
             prefix_list.append("-".join(f.split("-")[1:]))
     prefix_list = list(set(prefix_list))
-
 
     for struct in set_struct():
         for lr in lrs:
