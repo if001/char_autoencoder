@@ -66,11 +66,11 @@ def set_struct():
         # {"name": "small_shallow",
         #  "unit": [512, 256, 512]
         #  },
-        {"name": "small_middle",
-         "unit": [64, 128, 64, 128, 64]
+        {"name": "small_middle2",
+         "unit":  [512, 256, 128, 256, 512]
          },
         {"name": "small_middle2",
-         "unit": [256, 128, 64, 128, 256]
+         "unit": [64, 128, 64, 128, 64]
          }
     ]
     return __struct_dict
