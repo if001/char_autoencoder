@@ -63,18 +63,21 @@ def set_struct():
     __struct_dict = Struct.reshape()
 
     __struct_dict = [
-        {"name": "small_middle2",
-         "unit":  [256, 512, 256]
-         },
-        {"name": "small_middle2",
+        {"name": "1",
          "unit":  [1024, 512, 1024]
          },
-        {"name": "small_middle2",
+        {"name": "2",
          "unit": [256, 512, 128, 512, 256]
          },
-        {"name": "small_middle2",
+        {"name": "3",
          "unit": [512, 256, 128, 256, 512]
-         }
+         },
+        {"name": "4",
+         "unit": [512, 256, 128, 256, 512]
+        },
+        {"name":"5",
+         "unit":[250, 500, 250, 125, 250, 500, 250]
+        }
     ]
     return __struct_dict
 
