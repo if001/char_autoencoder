@@ -63,9 +63,9 @@ def set_struct():
     __struct_dict = Struct.reshape()
 
     __struct_dict = [
-        {"name": "1",
-         "unit":  [1024, 512, 1024]
-         },
+        # {"name": "1",
+        #  "unit":  [1024, 512, 1024]
+        #  }, #loss: 0.2867 - acc: 0.2845
         {"name": "2",
          "unit": [256, 512, 128, 512, 256]
          },
