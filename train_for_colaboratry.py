@@ -72,12 +72,12 @@ def set_struct():
         # {"name": "3",
         #  "unit": [512, 256, 128, 256, 512]
         #  }, # loss: 0.3649 - acc: 0.1687
-        {"name":"5",
-         "unit":[250, 500, 250, 125, 250, 500, 250]
-        },
-        {"name":"6",
-         "unit":[500, 800, 500, 250, 500, 800, 500]
-        }
+        {"name": "5",
+         "unit": [250, 500, 250, 125, 250, 500, 250]
+         },  # loss: 0.3541 - acc: 0.2475
+        {"name": "6",
+         "unit": [500, 800, 500, 250, 500, 800, 500]
+         }
     ]
     return __struct_dict
 
@@ -87,7 +87,7 @@ def main():
     opt = Adam
 
     lrs = np.arange(1, 11, 1) / 10000
-    lrs = [0.0002]
+    # lrs = [0.0002]
 
     prefix_list = []
     for f in os.listdir("./preprocessing/"):
